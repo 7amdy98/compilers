@@ -197,14 +197,16 @@ t.pack()
 
 def des():
     label.after(1000, label.destroy())
-
+    lab.after(1000, label.destroy())
 
 def myClick():
     global label
+    global lab
     u = t.get(1.0, END)
     label = Label(root, text=str(is_matching(tokenizer(u))), font=('Arial', 12))
     label.pack()
-
+    lab = Label(root, text=tokenizer(u), font=('Arial', 12))
+    lab.pack()
 
 # buttons
 

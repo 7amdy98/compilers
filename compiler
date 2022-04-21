@@ -8,8 +8,9 @@ from tkinter import scrolledtext
 def tokenizer(input_expression):
     current = 0
     tokens = []
-    alphabet = re.compile(r"[a-z]", re.I)
+
     numbers = re.compile(r"[0-9]")
+    alphabet = re.compile(r"[a-z\d]", re.I)
     whiteSpace = re.compile(r"\s")
     ignore = re.compile(r"\n")
     while current < len(input_expression):
@@ -127,8 +128,8 @@ def is_matching(tokens: dict):
             else:
                 current_state = 10
         elif current_state == 2:
-            if tok["type"] == "Equal" or tok["type"] == "Assign" or tok["type"] == "Greater Than Equal" or tok[
-                "type"] == "Greater Than" or tok["type"] == "Smaller Than Equal" or tok["type"] == "Smaller Than":
+            if tok["type"] == "Assign":
+
                 current_state = 3
             else:
                 current_state = 10
@@ -150,7 +151,7 @@ def is_matching(tokens: dict):
             else:
                 current_state = 10
         elif current_state == 6:
-            if tok["type"] == "name":
+            if tok["type"] == "name" or tok["type"] == "number":
                 current_state = 7
             else:
                 current_state = 10
@@ -199,14 +200,17 @@ def des():
     label.after(1000, label.destroy())
     lab.after(1000, label.destroy())
 
+
 def myClick():
     global label
     global lab
     u = t.get(1.0, END)
     label = Label(root, text=str(is_matching(tokenizer(u))), font=('Arial', 12))
     label.pack()
-    lab = Label(root, text=tokenizer(u), font=('Arial', 12))
+    lab = Label(root, text=tokenizer(u), font=('Arial', 10), wraplength=500)
+
     lab.pack()
+
 
 # buttons
 
